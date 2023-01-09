@@ -76,6 +76,9 @@ from rl4lms.envs.text_generation.reward import (
     IntentAccuracy,
     FixDateRewardFunction,
 )
+from rl4lms.envs.text_generation.test_reward import (
+    FixDateRewardFunction,
+)
 from rl4lms.envs.text_generation.preference_reward import CommonGenPrefRM
 from rl4lms.envs.text_generation.test_datapool import TestTextGenPool
 from rl4lms.envs.text_generation.test_metric import DateInText, IncreasingNumbersinText
