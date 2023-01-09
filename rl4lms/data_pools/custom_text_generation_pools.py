@@ -580,6 +580,25 @@ class DailyDialog(TextGenPool):
 
         dp_instance = cls(samples)
         return dp_instance
+    
+class VietSummarization(TextGenPool):
+    @classmethod
+    def prepare(cls, split: str):
+        dataset = load_dataset("json", data_files="vi_sum_dataset.json")
+        dataset_split = CommonGen.gen_split_name(split)
+        samples = []
+        for ix, item in tqdm(enumerate(dataset[dataset_split]),
+                             desc="Tokenizing dataset",
+                             total=len(dataset[dataset_split])):
+
+            sample = Sample(id=f"{split}_{ix}",
+                            prompt_or_input_text=item["content"],
+                            references=[item["summary"]]
+                            )
+            samples.append(sample)
+
+        pool_instance = cls(samples)
+        return pool_instance
 
 
 if __name__ == "__main__":
