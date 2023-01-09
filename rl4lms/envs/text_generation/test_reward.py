@@ -69,3 +69,25 @@ class RewardSentencesWithDates:
         if done:
             return RewardSentencesWithDates.date_in_text(current_observation.context_text)
         return 0
+
+class FixDateRewardFunction(RewardFunction):
+   def __init__(self, *args) -> None:
+       super().__init__()
+
+   def dont_make_up_the_date(text: str):
+        match = re.search(r'\d{4}-\d{2}-\d{2}',
+                          text)
+        if match is not None:
+            return 1
+        else:
+            return 0
+ 
+   def __call__(self, prev_observation: Observation,
+                action: int,
+                current_observation: Observation,
+                done: bool,
+                meta_info: Dict[str, Any] = None) -> float:
+       if done:
+           reward = FixDateRewardFunction.dont_make_up_the_date(current_observation.context_text)
+           return reward
+       return 0
