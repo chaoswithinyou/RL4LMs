@@ -20,6 +20,7 @@ from rl4lms.data_pools.custom_text_generation_pools import (
     WMT14PreprocessedEnDe,
     WMT16NewsOnlyDatasetEnDe,
     DailyDialog,
+    VietSummarization,
 )
 from rl4lms.data_pools.text_generation_pool import TextGenPool
 from rl4lms.envs.text_generation.alg_wrappers import wrap_onpolicy_alg
@@ -73,6 +74,7 @@ from rl4lms.envs.text_generation.reward import (
     SpiderRewardFunction,
     chrF,
     IntentAccuracy,
+    FixDateRewardFunction,
 )
 from rl4lms.envs.text_generation.preference_reward import CommonGenPrefRM
 from rl4lms.envs.text_generation.test_datapool import TestTextGenPool
@@ -98,6 +100,7 @@ class DataPoolRegistry:
         "iwslt2017en_de": IWSLT2017EnDe,
         "crd3": CRD3DialogueGeneration,
         "daily_dialog": DailyDialog,
+        "vi_sum": VietSummarization,
     }
 
     @classmethod
@@ -132,6 +135,7 @@ class RewardFunctionRegistry:
         "chrf": chrF,
         "intent_accuracy": IntentAccuracy,
         "common_gen_preference_model": CommonGenPrefRM,
+        "fixdate": FixDateRewardFunction,
     }
 
     @classmethod
