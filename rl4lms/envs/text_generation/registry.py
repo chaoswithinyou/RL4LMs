@@ -74,7 +74,6 @@ from rl4lms.envs.text_generation.reward import (
     SpiderRewardFunction,
     chrF,
     IntentAccuracy,
-    FixDateRewardFunction,
 )
 from rl4lms.envs.text_generation.test_reward import (
     FixDateRewardFunction,
