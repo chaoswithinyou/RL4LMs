@@ -15,7 +15,7 @@ datapool:
 env:
   n_envs: 10
   args:
-    max_prompt_length: 512
+    max_prompt_length: 1024
     max_episode_length: 250
     terminate_on_eos: True
     prompt_truncation_side: "right"
