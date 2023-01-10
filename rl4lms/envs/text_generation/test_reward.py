@@ -74,13 +74,14 @@ class FixDateRewardFunction(RewardFunction):
    def __init__(self, *args) -> None:
        super().__init__()
 
-   def dont_make_up_the_date(text: str):
-        match = re.search(r'\d{4}-\d{2}-\d{2}',
-                          text)
-        if match is not None:
-            return 1
-        else:
-            return 0
+   def dont_make_up_the_date(summary: str, content: str):
+        date_list = re.findall(r'\d{2}-\d{2}-\d{4}',summary) + re.findall(r'd{2}-\d{4}',summary) + re.findall(r'\d{2}-\d{2}',summary) + re.findall('[0-9]+',summary)
+        date_list += re.findall(r'\d{2}.\d{2}.\d{4}',summary) + re.findall(r'd{2}.\d{4}',summary) + re.findall(r'\d{2}.\d{2}',summary)
+        date_list += re.findall(r'\d{2}/\d{2}/\d{4}',summary) + re.findall(r'd{2}/\d{4}',summary) + re.findall(r'\d{2}/\d{2}',summary)
+        for item in date_list:
+            if item not in content:
+                return 0
+        return 1
  
    def __call__(self, prev_observation: Observation,
                 action: int,
@@ -88,6 +89,6 @@ class FixDateRewardFunction(RewardFunction):
                 done: bool,
                 meta_info: Dict[str, Any] = None) -> float:
        if done:
-           reward = FixDateRewardFunction.dont_make_up_the_date(current_observation.context_text)
+           reward = FixDateRewardFunction.dont_make_up_the_date(current_observation.context_text, current_observation.prompt_or_input_text)
            return reward
        return 0
